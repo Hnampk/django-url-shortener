@@ -11,13 +11,16 @@ class KirrURLManager(models.Manager):
 
         return actived_set
 
-    def refresh_shortcodes(self):
-        query_set = super(KirrURLManager, self).all()
+    def refresh_shortcodes(self, items=None):
+        query_set = super(KirrURLManager, self).filter(id__gte=1)
+
+        if items is not None and isinstance(items, int):
+            query_set = query_set.order_by('-id')[:items]
         recreate_count = 0
 
         for query in query_set:
             query.shortcode = create_shortcode(query)
-            print(query.shortcode)
+            print(query.id)
             query.save()
             recreate_count += 1
 
