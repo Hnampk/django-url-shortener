@@ -19,7 +19,7 @@ from shortener.views import kirr_redirect_view, KirrClassBasedView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path(r'^a/(?P<shortcode>[\w-]+)/$', kirr_redirect_view),
-    re_path(r'^b/(?P<shortcode>[\w-]+)/$', KirrClassBasedView.as_view()),
+    re_path(r'^(?P<shortcode>[\w-]{6,15})/$', kirr_redirect_view),
+    re_path(r'^b/(?P<shortcode>[\w-]{6,15})/$', KirrClassBasedView.as_view()),
 
 ]

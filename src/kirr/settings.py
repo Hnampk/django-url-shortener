@@ -25,7 +25,7 @@ SECRET_KEY = 'l=+e9l7q^5_c$%lquqo@i3#!0=$5s_=bk1*zjy(2m9mum#@t$@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['tirr.com', 'www.tirr.com', 'blog.tirr.com', 'live.tirr.com']
 
 
 # Application definition
@@ -38,11 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # third-party app
+    'django_hosts',
+
     # Custom app
     'shortener'
 ]
 
 MIDDLEWARE = [
+    'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -50,9 +54,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_hosts.middleware.HostsResponseMiddleware',
 ]
 
 ROOT_URLCONF = 'kirr.urls'
+ROOT_HOSTCONF = 'kirr.hosts'
+DEFAULT_HOST = 'www'
+DEFAULT_REDIRECT_URL = 'http://www.tirr.com:8000'
 
 TEMPLATES = [
     {
@@ -122,5 +130,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-SHORTCODE_MAX = 16
+SHORTCODE_MAX = 15
 SHORTCODE_MIN = 6
